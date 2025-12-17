@@ -1,0 +1,320 @@
+/* =========================
+   GLOBAL RESET & VARIABLES
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  font-family: 'Poppins', sans-serif;
+}
+
+:root {
+  --primary: #ff7a18;
+  --secondary: #ffb347;
+  --dark: #111;
+  --light: #ffffff;
+  --bg: #f4f6f8;
+  --glass: rgba(255, 255, 255, 0.75);
+  --shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+body {
+  background: linear-gradient(180deg, #fff, #f1f1f1);
+  color: #222;
+  min-height: 100vh;
+  padding-bottom: 85px; /* space for bottom nav */
+}
+
+/* =========================
+   HEADER
+========================= */
+.app-header {
+  text-align: center;
+  padding: 18px 12px 10px;
+}
+
+.app-header h1 {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.app-header p {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* =========================
+   PAGE SYSTEM
+========================= */
+.page {
+  display: none;
+  animation: fadeUp 0.4s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   SEARCH
+========================= */
+.search-box {
+  width: 90%;
+  max-width: 420px;
+  margin: 14px auto;
+  background: var(--light);
+  border-radius: 25px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow);
+}
+
+.search-box i {
+  color: var(--primary);
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 15px;
+}
+
+/* =========================
+   MENU GRID
+========================= */
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 18px;
+}
+
+/* =========================
+   MEAL CARD
+========================= */
+.meal-card {
+  background: var(--light);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.meal-card:active {
+  transform: scale(0.97);
+}
+
+.meal-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.meal-info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.meal-name {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.meal-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #777;
+}
+
+.meal-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meal-footer button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* =========================
+   AI CHAT
+========================= */
+.ai-container {
+  padding: 18px;
+}
+
+.ai-container h2 {
+  font-size: 20px;
+}
+
+.ai-container p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.ai-chat-box {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 12px;
+  height: 55vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+}
+
+.ai-msg {
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  max-width: 85%;
+}
+
+.ai-user {
+  background: var(--primary);
+  color: white;
+  margin-left: auto;
+}
+
+.ai-bot {
+  background: #eee;
+  color: #222;
+}
+
+.ai-input {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.ai-input input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: none;
+  outline: none;
+  box-shadow: var(--shadow);
+}
+
+.ai-input button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 16px;
+}
+
+/* =========================
+   FAVORITES
+========================= */
+#favorites {
+  padding: 18px;
+}
+
+.fav-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+/* =========================
+   PROFILE
+========================= */
+.profile-box {
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.profile-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+.profile-box h2 {
+  font-size: 20px;
+}
+
+.profile-box p {
+  font-size: 14px;
+  color: #666;
+  margin: 8px 0 16px;
+}
+
+.install-btn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -6px 18px rgba(0,0,0,0.08);
+  z-index: 100;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #777;
+}
+
+.nav-btn i {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+.nav-btn.active {
+  color: var(--primary);
+}
