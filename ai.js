@@ -8,7 +8,27 @@ const aiInput = document.getElementById("aiPrompt");
 const askBtn = document.getElementById("askAI");
 
 /* =========================
-   BASIC MESSAGE (USER / SYSTEM)
+   FORMAT AI TEXT → LIST
+========================= */
+
+function formatAIText(text) {
+  const lines = text.split("\n").filter(l => l.trim() !== "");
+
+  if (lines.length > 1) {
+    return `
+      <ul class="ai-list">
+        ${lines.map(line =>
+          `<li>${line.replace(/^[-•*\d.]+\s*/, "")}</li>`
+        ).join("")}
+      </ul>
+    `;
+  }
+
+  return `<p>${text}</p>`;
+}
+
+/* =========================
+   USER MESSAGE
 ========================= */
 
 function addMessage(text, type) {
@@ -20,23 +40,22 @@ function addMessage(text, type) {
 }
 
 /* =========================
-   AI STREAMING MESSAGE
+   AI MESSAGE (WITH COPY)
 ========================= */
 
-function addBotMessageStream(text) {
+function addBotMessage(text) {
   const msg = document.createElement("div");
   msg.className = "ai-msg ai-bot";
+
+  msg.innerHTML = `
+    <div class="ai-content">
+      ${formatAIText(text)}
+      <button class="copy-btn">📋 Copy</button>
+    </div>
+  `;
+
   aiChatBox.appendChild(msg);
-
-  let i = 0;
-  const words = text.split(" ");
-
-  const interval = setInterval(() => {
-    msg.textContent += words[i] + " ";
-    aiChatBox.scrollTop = aiChatBox.scrollHeight;
-    i++;
-    if (i >= words.length) clearInterval(interval);
-  }, 40);
+  aiChatBox.scrollTop = aiChatBox.scrollHeight;
 }
 
 /* =========================
@@ -47,7 +66,7 @@ function showTyping() {
   const typing = document.createElement("div");
   typing.className = "ai-msg ai-bot typing-dots";
   typing.id = "typing";
-  typing.textContent = "AI is typing";
+  typing.textContent = "AI is typing...";
   aiChatBox.appendChild(typing);
   aiChatBox.scrollTop = aiChatBox.scrollHeight;
 }
@@ -67,9 +86,7 @@ async function askAI(prompt) {
 
     const response = await fetch("/api/ask", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt })
     });
 
@@ -77,18 +94,37 @@ async function askAI(prompt) {
     removeTyping();
 
     if (!data.choices || !data.choices[0]) {
-      addBotMessageStream("⚠️ No response from AI. Try again.");
+      addBotMessage("⚠️ No response from AI. Try again.");
       return;
     }
 
-    addBotMessageStream(data.choices[0].message.content);
+    addBotMessage(data.choices[0].message.content);
 
   } catch (err) {
     removeTyping();
-    addBotMessageStream("❌ Error connecting to AI.");
+    addBotMessage("❌ Error connecting to AI.");
     console.error(err);
   }
 }
+
+/* =========================
+   COPY BUTTON EVENT
+========================= */
+
+aiChatBox.addEventListener("click", e => {
+  if (e.target.classList.contains("copy-btn")) {
+    const text = e.target.parentElement.innerText
+      .replace("📋 Copy", "")
+      .trim();
+
+    navigator.clipboard.writeText(text);
+
+    e.target.textContent = "✅ Copied";
+    setTimeout(() => {
+      e.target.textContent = "📋 Copy";
+    }, 1200);
+  }
+});
 
 /* =========================
    EVENTS
@@ -99,22 +135,20 @@ askBtn.addEventListener("click", () => {
   const text = aiInput.value.trim();
   if (!text) return;
 
-  addMessage(text, "ai-user"); // instant user msg
+  addMessage(text, "ai-user");
   aiInput.value = "";
   askAI(text);
 });
 
 // Enter key
 aiInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    askBtn.click();
-  }
+  if (e.key === "Enter") askBtn.click();
 });
 
 /* =========================
    WELCOME MESSAGE
 ========================= */
 
-addBotMessageStream(
+addBotMessage(
   "👋 Hi! I’m your AI food assistant.\n\nYou can ask me:\n• Suggest a spicy meal 🌶️\n• Best food under 200₹ 💰\n• Quick snacks ⏱️\n• Healthy diet options 🥗"
 );
