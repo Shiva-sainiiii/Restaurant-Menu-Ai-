@@ -20,42 +20,42 @@ const searchInput = $("#searchInput");
 export const meals = [
   {
     id: 1,
-    name: "Cheese Burger",
+    name: "Dhosa - Chatani",
     image: "assets/images/food1.jpg",
     rating: 4.5,
     time: "20 min"
   },
   {
     id: 2,
-    name: "Veg Pizza",
+    name: "Momo",
     image: "assets/images/food2.jpg",
     rating: 4.2,
     time: "25 min"
   },
   {
     id: 3,
-    name: "Creamy Pasta",
+    name: "Sandwich",
     image: "assets/images/food3.jpg",
     rating: 4.7,
     time: "18 min"
   },
   {
     id: 4,
-    name: "Paneer Tikka",
+    name: "Pizza",
     image: "assets/images/food4.jpg",
     rating: 4.8,
     time: "30 min"
   },
   {
     id: 5,
-    name: "Chicken Biryani",
+    name: "Burger",
     image: "assets/images/food5.jpg",
     rating: 4.9,
     time: "35 min"
   },
   {
     id: 6,
-    name: "Hot Coffee",
+    name: "Samosa",
     image: "assets/images/food6.jpg",
     rating: 4.4,
     time: "5 min"
