@@ -63,84 +63,84 @@ export const meals = [
   {
     "id": 7,
     "name": "Nachos",
-    "image": "https://share.google/OelRjvIFNuLVqwHMG",
+    "image": "https://drive.google.com/uc?export=view&id=OelRjvIFNuLVqwHMG",
     "rating": 4.3,
     "time": "15 min"
   },
   {
     "id": 8,
     "name": "Tacos",
-    "image": "https://share.google/yGFnPURD95QLZLZY9",
+    "image": "https://drive.google.com/uc?export=view&id=yGFnPURD95QLZLZY9",
     "rating": 4.6,
     "time": "20 min"
   },
   {
     "id": 9,
     "name": "Quesadilla",
-    "image": "https://share.google/zafRhwmTqBxEYP77W",
+    "image": "https://drive.google.com/uc?export=view&id=zafRhwmTqBxEYP77W",
     "rating": 4.1,
     "time": "25 min"
   },
   {
     "id": 10,
     "name": "Falafel",
-    "image": "https://share.google/rURpUEGQzmsXxep3N",
+    "image": "https://drive.google.com/uc?export=view&id=rURpUEGQzmsXxep3N",
     "rating": 4.4,
     "time": "30 min"
   },
   {
     "id": 11,
     "name": "Shawarma",
-    "image": "https://share.google/in2I5FlfgdIvFaaF0",
+    "image": "https://drive.google.com/uc?export=view&id=in2I5FlfgdIvFaaF0",
     "rating": 4.7,
     "time": "20 min"
   },
   {
     "id": 12,
     "name": "Spring Rolls",
-    "image": "https://share.google/xlSe7bsuRzs24L7yd",
+    "image": "https://drive.google.com/uc?export=view&id=xlSe7bsuRzs24L7yd",
     "rating": 4.2,
     "time": "18 min"
   },
   {
     "id": 13,
     "name": "Dumplings",
-    "image": "https://share.google/FW32BkRI0yHTXPfos",
+    "image": "https://drive.google.com/uc?export=view&id=FW32BkRI0yHTXPfos",
     "rating": 4.5,
     "time": "22 min"
   },
   {
     "id": 14,
     "name": "Hot Dog",
-    "image": "https://share.google/YTIwPPVFnPeoGhUbI",
+    "image": "https://drive.google.com/uc?export=view&id=YTIwPPVFnPeoGhUbI",
     "rating": 4.0,
     "time": "10 min"
   },
   {
     "id": 15,
     "name": "Grilled Cheese",
-    "image": "https://share.google/Vd4uqv7d7mlaMGnwM",
+    "image": "https://drive.google.com/uc?export=view&id=Vd4uqv7d7mlaMGnwM",
     "rating": 4.3,
     "time": "12 min"
   },
   {
     "id": 16,
     "name": "Chicken Nuggets",
-    "image": "https://share.google/tAUwooWLAAF5Dmp27",
+    "image": "https://drive.google.com/uc?export=view&id=tAUwooWLAAF5Dmp27",
     "rating": 4.6,
     "time": "15 min"
   },
   {
     "id": 17,
     "name": "Fish and Chips",
-    "image": "https://share.google/rScaYhB7u5RGeqKwu",
+    "image": "https://drive.google.com/uc?export=view&id=rScaYhB7u5RGeqKwu",
     "rating": 4.4,
     "time": "25 min"
   },
   {
     "id": 18,
     "name": "Chicken Tikka",
-    "image": "https://share.google/OzDta43FyAdM9l1Se",
+    "image": "https://drive.google.com/uc?export=view&id=OzDta43FyAdM9l1Se",
     "rating": 4.8,
     "time": "30 min"
   }
