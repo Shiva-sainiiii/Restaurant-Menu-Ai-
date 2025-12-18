@@ -11,7 +11,15 @@ export default async function handler(req, res) {
   if (!prompt || prompt.trim() === "") {
     return res.status(400).json({ error: "Prompt is required" });
   }
+    //filter 
+    const forbidden = ["code", "politics", "movie", "relationship", "hacking"];
 
+if(forbidden.some(word => prompt.toLowerCase().includes(word))){
+  return res.status(200).json({
+    choices:[{message:{content:"🍽️ I can help only with food & diet related questions."}}]
+  });
+}
+  
   try {
     // Call OpenRouter API
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
