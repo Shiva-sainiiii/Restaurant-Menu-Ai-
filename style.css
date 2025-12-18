@@ -19,13 +19,14 @@
   --shadow: 0 12px 30px rgba(0,0,0,0.08);
 }
 
+
 body {
-  background: linear-gradient(180deg, #fff, #f1f1f1);
+  /* Dark to light orangish gradient */
+  background: linear-gradient(180deg, #ff6a00, #ffb347); /* Dark orange at top to light orange at bottom */
   color: #222;
   min-height: 100vh;
   padding-bottom: 85px; /* space for bottom nav */
 }
-
 /* =========================
    HEADER
 ========================= */
@@ -380,3 +381,4 @@ body {
 .ai-bot {
   position: relative;
 }
+
