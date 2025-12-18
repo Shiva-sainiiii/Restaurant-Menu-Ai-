@@ -13,20 +13,42 @@ const askBtn = document.getElementById("askAI");
 
 function formatAIText(text) {
   const lines = text.split("\n").filter(l => l.trim() !== "");
+  let html = "";
+  let listItems = [];
 
-  if (lines.length > 1) {
-    return `
+  lines.forEach((line, index) => {
+    const clean = line.trim();
+
+    // Bullet / numbered points
+    if (/^[-•*\d.]+\s+/.test(clean)) {
+      listItems.push(
+        clean.replace(/^[-•*\d.]+\s*/, "")
+      );
+    }
+    // Ingredients / Calories type lines
+    else if (clean.includes(":")) {
+      html += `<p><strong>${clean.split(":")[0]}:</strong>${clean.split(":").slice(1).join(":")}</p>`;
+    }
+    // Heading (first line)
+    else if (index === 0) {
+      html += `<p><strong>${clean}</strong></p>`;
+    }
+    // Normal description
+    else {
+      html += `<p>${clean}</p>`;
+    }
+  });
+
+  if (listItems.length) {
+    html += `
       <ul class="ai-list">
-        ${lines.map(line =>
-          `<li>${line.replace(/^[-•*\d.]+\s*/, "")}</li>`
-        ).join("")}
+        ${listItems.map(i => `<li>${i}</li>`).join("")}
       </ul>
     `;
   }
 
-  return `<p>${text}</p>`;
+  return html;
 }
-
 /* =========================
    USER MESSAGE
 ========================= */
