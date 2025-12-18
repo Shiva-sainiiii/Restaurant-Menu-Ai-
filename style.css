@@ -22,11 +22,7 @@
 
 body {
   /* Dark to light orangish gradient */
-   /* Dark orange at top to light orange at bottom */
- 
-
-   background: linear-gradient(180deg, #FF8C00, #FFA07A, #FFFFFF);
-   
+background: linear-gradient(180deg, #E85D04, #FF7A18);
    color: #222;
   min-height: 100vh;
   padding-bottom: 85px; /* space for bottom nav */
@@ -385,6 +381,7 @@ body {
 .ai-bot {
   position: relative;
 }
+
 
 
 
