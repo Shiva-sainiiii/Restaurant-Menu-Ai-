@@ -23,7 +23,7 @@
 body {
   /* Dark to light orangish gradient */
 background: linear-gradient(180deg, #E85D04, #FFF);
-   color: #fff;
+   color: #222;
   min-height: 100vh;
   padding-bottom: 85px; /* space for bottom nav */
 }
@@ -38,11 +38,12 @@ background: linear-gradient(180deg, #E85D04, #FFF);
 .app-header h1 {
   font-size: 26px;
   font-weight: 600;
+color:#fff1b5;
 }
 
 .app-header p {
   font-size: 14px;
-  color: #666;
+  color: #FFF3C4;
   margin-top: 4px;
 }
 
@@ -381,6 +382,7 @@ background: linear-gradient(180deg, #E85D04, #FFF);
 .ai-bot {
   position: relative;
 }
+
 
 
 
