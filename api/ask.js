@@ -1,92 +1,139 @@
 // api/ask.js
 
 export default async function handler(req, res) {
-  // Only allow POST requests
+  // Allow only POST
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   const { prompt } = req.body;
 
+  // Basic validation
   if (!prompt || prompt.trim() === "") {
     return res.status(400).json({ error: "Prompt is required" });
   }
-    //filter 
-    const forbidden = [
-  "code", "coding", "programming",
-  "politics", "movie", "film",
-  "relationship", "love",
-  "hacking", "hack",
-  "math", "physics"
-];
 
-const lowerPrompt = prompt.toLowerCase();
+  // Prompt length protection (anti-spam)
+  if (prompt.length > 300) {
+    return res.status(400).json({
+      error: "Prompt too long"
+    });
+  }
 
-if (forbidden.some(word => lowerPrompt.split(/\s+/).includes(word))) {
-  return res.status(200).json({
-    choices: [{
-      message: {
-        content: "🍽️ I can help only with food & diet related questions."
-      }
-    }]
-  });
-}
-  
+  /* =========================
+     FOOD-ONLY FILTER
+  ========================= */
+
+  const forbidden = [
+    "code", "coding", "programming",
+    "politics", "movie", "film",
+    "relationship", "love",
+    "hacking", "hack",
+    "math", "physics"
+  ];
+
+  const words = prompt.toLowerCase().split(/\s+/);
+
+  if (forbidden.some(word => words.includes(word))) {
+    return res.status(200).json({
+      choices: [{
+        message: {
+          content: "🍽️ I can help only with food & diet related questions."
+        }
+      }]
+    });
+  }
+
+  /* =========================
+     MODEL SELECTION
+  ========================= */
+
+  const models = [
+    "mistralai/devstral-2512:free",          // PRIMARY (BEST)
+    "meta-llama/llama-3.1-8b-instruct:free"  // BACKUP
+  ];
+
+  const model = models[0];
+
   try {
-    // Call OpenRouter API
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "mistralai/devstral-2512:free",
-        messages: [
-          {
-  role: "system",
-  content: `
+    /* =========================
+       OPENROUTER API CALL
+    ========================= */
+
+    const response = await fetch(
+      "https://openrouter.ai/api/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model,
+          messages: [
+            {
+              role: "system",
+              content: `
 You are a FOOD & DIET AI assistant for a restaurant app.
 
-RULES (STRICT):
-- Answer ONLY food, meals, diet plans, nutrition, calories, price-based meals
-- If user asks anything unrelated (coding, politics, math, personal advice):
-  reply politely: "🍽️ I can help only with food & diet related questions."
+STRICT RULES:
+- Answer ONLY food, meals, diet plans, nutrition, calories & budget meals
+- If question is unrelated, reply:
+  "🍽️ I can help only with food & diet related questions."
 
-Allowed examples:
-- Meal suggestions
-- Indian diet plans
+Allowed:
+- Indian meals
+- Diet plans
 - Weight loss food
-- Budget meals
-- Healthy snacks
 - Gym diet
-- Kids food
-- Festival food
+- Healthy snacks
+- Kids & festival food
 
 Never break these rules.
 `
-          },
-          {
-            role: "user",
-            content: prompt
+            },
+            {
+              role: "user",
+              content: prompt
+            }
+          ],
+          temperature: 0.6,
+          max_tokens: 220
+        })
+      }
+    );
+
+    // Handle OpenRouter errors
+    if (!response.ok) {
+      console.error("OpenRouter Error:", response.status);
+      return res.status(200).json({
+        choices: [{
+          message: {
+            content: "⚠️ AI is busy right now. Please try again shortly."
           }
-        ],
-        temperature: 0.6,
-        max_tokens: 220
-      })
-    });
+        }]
+      });
+    }
 
     const data = await response.json();
 
     if (!data.choices || !data.choices[0]) {
-      return res.status(200).json({ choices: [{ message: { content: "⚠️ No response from AI." } }] });
+      return res.status(200).json({
+        choices: [{
+          message: {
+            content: "⚠️ No response from AI."
+          }
+        }]
+      });
     }
 
-    // Send AI response to frontend
-    res.status(200).json(data);
+    // Send response to frontend
+    return res.status(200).json(data);
 
   } catch (err) {
     console.error("AI request error:", err);
-    res.status(500).json({ error: "AI request failed" });
+    return res.status(500).json({
+      error: "AI request failed"
+    });
   }
-          }
+    }
