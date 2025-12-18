@@ -8,32 +8,41 @@ const aiInput = document.getElementById("aiPrompt");
 const askBtn = document.getElementById("askAI");
 
 /* =========================
-   FORMAT AI TEXT → LIST
+   FORMAT AI TEXT → CLEAN UI
 ========================= */
 
 function formatAIText(text) {
-  const lines = text.split("\n").filter(l => l.trim() !== "");
+  const lines = text
+    .replace(/\*\*/g, "")      // remove **
+    .replace(/#+\s?/g, "")    // remove ### ##
+    .split("\n")
+    .filter(l => l.trim() !== "");
+
   let html = "";
   let listItems = [];
 
   lines.forEach((line, index) => {
     const clean = line.trim();
 
-    // Bullet / numbered points
-    if (/^[-•*\d.]+\s+/.test(clean)) {
+    // Bullet or numbered list
+    if (/^[-•\d.]+\s+/.test(clean)) {
       listItems.push(
-        clean.replace(/^[-•*\d.]+\s*/, "")
+        clean.replace(/^[-•\d.]+\s*/, "")
       );
     }
-    // Ingredients / Calories type lines
+
+    // Key : Value (Nutrition, Calories etc)
     else if (clean.includes(":")) {
-      html += `<p><strong>${clean.split(":")[0]}:</strong>${clean.split(":").slice(1).join(":")}</p>`;
+      const [key, ...rest] = clean.split(":");
+      html += `<p><strong>${key}:</strong> ${rest.join(":").trim()}</p>`;
     }
-    // Heading (first line)
+
+    // First line = heading
     else if (index === 0) {
-      html += `<p><strong>${clean}</strong></p>`;
+      html += `<p class="ai-heading">${clean}</p>`;
     }
-    // Normal description
+
+    // Normal text
     else {
       html += `<p>${clean}</p>`;
     }
@@ -49,6 +58,7 @@ function formatAIText(text) {
 
   return html;
 }
+
 /* =========================
    USER MESSAGE
 ========================= */
@@ -62,7 +72,7 @@ function addMessage(text, type) {
 }
 
 /* =========================
-   AI MESSAGE (WITH COPY)
+   BOT MESSAGE
 ========================= */
 
 function addBotMessage(text) {
@@ -115,7 +125,7 @@ async function askAI(prompt) {
     const data = await response.json();
     removeTyping();
 
-    if (!data.choices || !data.choices[0]) {
+    if (!data?.choices?.[0]?.message?.content) {
       addBotMessage("⚠️ No response from AI. Try again.");
       return;
     }
@@ -130,29 +140,28 @@ async function askAI(prompt) {
 }
 
 /* =========================
-   COPY BUTTON EVENT
+   COPY BUTTON
 ========================= */
 
 aiChatBox.addEventListener("click", e => {
-  if (e.target.classList.contains("copy-btn")) {
-    const text = e.target.parentElement.innerText
-      .replace("📋 Copy", "")
-      .trim();
+  if (!e.target.classList.contains("copy-btn")) return;
 
-    navigator.clipboard.writeText(text);
+  const content = e.target.parentElement.innerText
+    .replace("📋 Copy", "")
+    .trim();
 
-    e.target.textContent = "✅ Copied";
-    setTimeout(() => {
-      e.target.textContent = "📋 Copy";
-    }, 1200);
-  }
+  navigator.clipboard.writeText(content);
+
+  e.target.textContent = "✅ Copied";
+  setTimeout(() => {
+    e.target.textContent = "📋 Copy";
+  }, 1200);
 });
 
 /* =========================
    EVENTS
 ========================= */
 
-// Send button
 askBtn.addEventListener("click", () => {
   const text = aiInput.value.trim();
   if (!text) return;
@@ -162,7 +171,6 @@ askBtn.addEventListener("click", () => {
   askAI(text);
 });
 
-// Enter key
 aiInput.addEventListener("keydown", e => {
   if (e.key === "Enter") askBtn.click();
 });
@@ -172,5 +180,5 @@ aiInput.addEventListener("keydown", e => {
 ========================= */
 
 addBotMessage(
-  "👋 Hi! I’m your AI food assistant.\n\nYou can ask me:\n• Suggest a spicy meal 🌶️\n• Best food under 200₹ 💰\n• Quick snacks ⏱️\n• Healthy diet options 🥗"
+  "👋 Hi! I’m your AI food assistant.\n\nYou can ask me:\n• Spicy meal suggestions 🌶️\n• Best food under 200₹ 💰\n• Quick snacks ⏱️\n• Healthy diet plans 🥗"
 );
