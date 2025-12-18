@@ -18,90 +18,189 @@ const searchInput = $("#searchInput");
    (Later replace with API)
 ========================= */
 export const meals = [
-  {
-    id: 1,
-    name: "Dhosa - Chatani",
-    image: "assets/images/food1.jpg",
-    rating: 4.5,
-    time: "20 min"
-  },
-  {
-    id: 2,
-    name: "Momo",
-    image: "assets/images/food2.jpg",
-    rating: 4.2,
-    time: "25 min"
-  },
-  {
-    id: 3,
-    name: "Sandwich",
-    image: "assets/images/food3.jpg",
-    rating: 4.7,
-    time: "18 min"
-  },
-  {
-    id: 4,
-    name: "Pizza",
-    image: "assets/images/food4.jpg",
-    rating: 4.8,
-    time: "30 min"
-  },
-  {
-    id: 5,
-    name: "Burger",
-    image: "assets/images/food5.jpg",
-    rating: 4.9,
-    time: "35 min"
-  },
-  {
-    id: 6,
-    name: "Samosa",
-    image: "assets/images/food6.jpg",
-    rating: 4.4,
-    time: "5 min"
-  },
-  {
-    id: 7,
-    name: "Dhosa - Chatani",
-    image: "assets/images/food7.jpg",
-    rating: 4.5,
-    time: "20 min"
-  },
-  {
-    id: 8,
-    name: "Momo",
-    image: "assets/images/food2.jpg",
-    rating: 4.2,
-    time: "25 min"
-  },
-  {
-    id: 9,
-    name: "Sandwich",
-    image: "assets/images/food3.jpg",
-    rating: 4.7,
-    time: "18 min"
-  },
-  {
-    id: 10,
-    name: "Pizza",
-    image: "assets/images/food4.jpg",
-    rating: 4.8,
-    time: "30 min"
-  },
-  {
-    id: 11,
-    name: "Burger",
-    image: "assets/images/food5.jpg",
-    rating: 4.9,
-    time: "35 min"
-  },
-  {
-    id: 12,
-    name: "Samosa",
-    image: "assets/images/food6.jpg",
-    rating: 4.4,
-    time: "5 min"
-  }
+{
+id: 1,
+name: "Dhosa - Chatani",
+image: "assets/images/food1.jpg",
+rating: 4.5,
+time: "20 min"
+},
+{
+id: 2,
+name: "Momo",
+image: "assets/images/food2.jpg",
+rating: 4.2,
+time: "25 min"
+},
+{
+id: 3,
+name: "Sandwich",
+image: "assets/images/food3.jpg",
+rating: 4.7,
+time: "18 min"
+},
+{
+id: 4,
+name: "Pizza",
+image: "assets/images/food4.jpg",
+rating: 4.8,
+time: "30 min"
+},
+{
+id: 5,
+name: "Burger",
+image: "assets/images/food5.jpg",
+rating: 4.9,
+time: "35 min"
+},
+{
+id: 6,
+name: "Samosa",
+image: "assets/images/food6.jpg",
+rating: 4.4,
+time: "5 min"
+},
+{
+id: 7,
+name: "Nachos",
+image: "assets/images/food7.jpg",
+rating: 4.3,
+time: "15 min"
+},
+{
+id: 8,
+name: "Tacos",
+image: "assets/images/food8.jpg",
+rating: 4.6,
+time: "20 min"
+},
+{
+id: 9,
+name: "Quesadilla",
+image: "assets/images/food9.jpg",
+rating: 4.1,
+time: "25 min"
+},
+{
+id: 10,
+name: "Falafel",
+image: "assets/images/food10.jpg",
+rating: 4.4,
+time: "30 min"
+},
+{
+id: 11,
+name: "Shawarma",
+image: "assets/images/food11.jpg",
+rating: 4.7,
+time: "20 min"
+},
+{
+id: 12,
+name: "Spring Rolls",
+image: "assets/images/food12.jpg",
+rating: 4.2,
+time: "18 min"
+},
+{
+id: 13,
+name: "Dumplings",
+image: "assets/images/food13.jpg",
+rating: 4.5,
+time: "22 min"
+},
+{
+id: 14,
+name: "Hot Dog",
+image: "assets/images/food14.jpg",
+rating: 4.0,
+time: "10 min"
+},
+{
+id: 15,
+name: "Grilled Cheese",
+image: "assets/images/food15.jpg",
+rating: 4.3,
+time: "12 min"
+},
+{
+id: 16,
+name: "Chicken Nuggets",
+image: "assets/images/food16.jpg",
+rating: 4.6,
+time: "15 min"
+},
+{
+id: 17,
+name: "Fish and Chips",
+image: "assets/images/food17.jpg",
+rating: 4.4,
+time: "25 min"
+},
+{
+id: 18,
+name: "Chicken Tikka",
+image: "assets/images/food18.jpg",
+rating: 4.8,
+time: "30 min"
+},
+{
+id: 19,
+name: "Meatball Sub",
+image: "assets/images/food19.jpg",
+rating: 4.5,
+time: "20 min"
+},
+{
+id: 20,
+name: "Onion Rings",
+image: "assets/images/food20.jpg",
+rating: 4.1,
+time: "18 min"
+},
+{
+id: 21,
+name: "Chicken Wings",
+image: "assets/images/food21.jpg",
+rating: 4.7,
+time: "25 min"
+},
+{
+id: 22,
+name: "Paneer Tikka",
+image: "assets/images/food22.jpg",
+rating: 4.6,
+time: "20 min"
+},
+{
+id: 23,
+name: "Veggie Burger",
+image: "assets/images/food23.jpg",
+rating: 4.3,
+time: "18 min"
+},
+{
+id: 24,
+name: "Corn Dog",
+image: "assets/images/food24.jpg",
+rating: 4.2,
+time: "15 min"
+},
+{
+id: 25,
+name: "Fritos",
+image: "assets/images/food25.jpg",
+rating: 4.0,
+time: "5 min"
+},
+{
+id: 26,
+name: "Chaat",
+image: "assets/images/food26.jpg",
+rating: 4.8,
+time: "10 min"
+}
+
 ];
 
 /* =========================
