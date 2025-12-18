@@ -12,11 +12,23 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Prompt is required" });
   }
     //filter 
-    const forbidden = ["code", "politics", "movie", "relationship", "hacking"];
+    const forbidden = [
+  "code", "coding", "programming",
+  "politics", "movie", "film",
+  "relationship", "love",
+  "hacking", "hack",
+  "math", "physics"
+];
 
-if(forbidden.some(word => prompt.toLowerCase().includes(word))){
+const lowerPrompt = prompt.toLowerCase();
+
+if (forbidden.some(word => lowerPrompt.split(/\s+/).includes(word))) {
   return res.status(200).json({
-    choices:[{message:{content:"🍽️ I can help only with food & diet related questions."}}]
+    choices: [{
+      message: {
+        content: "🍽️ I can help only with food & diet related questions."
+      }
+    }]
   });
 }
   
