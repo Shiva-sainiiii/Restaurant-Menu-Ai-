@@ -28,21 +28,21 @@ export const meals = [
   {
     id: 2,
     name: "Veg Pizza",
-    image: "assets/images/food2.jpeg",
+    image: "assets/images/food2.jpg",
     rating: 4.2,
     time: "25 min"
   },
   {
     id: 3,
     name: "Creamy Pasta",
-    image: "assets/images/food3.jpeg",
+    image: "assets/images/food3.jpg",
     rating: 4.7,
     time: "18 min"
   },
   {
     id: 4,
     name: "Paneer Tikka",
-    image: "assets/images/food4.jpeg",
+    image: "assets/images/food4.jpg",
     rating: 4.8,
     time: "30 min"
   },
@@ -56,7 +56,7 @@ export const meals = [
   {
     id: 6,
     name: "Hot Coffee",
-    image: "assets/images/food6.jpeg",
+    image: "assets/images/food6.jpg",
     rating: 4.4,
     time: "5 min"
   }
