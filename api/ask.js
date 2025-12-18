@@ -71,8 +71,8 @@ Never break these rules.
             content: prompt
           }
         ],
-        temperature: 0.7,
-        max_tokens: 200
+        temperature: 0.6,
+        max_tokens: 220
       })
     });
 
