@@ -59,6 +59,48 @@ export const meals = [
     image: "assets/images/food6.jpg",
     rating: 4.4,
     time: "5 min"
+  },
+  {
+    id: 7,
+    name: "Dhosa - Chatani",
+    image: "assets/images/food7.jpg",
+    rating: 4.5,
+    time: "20 min"
+  },
+  {
+    id: 8,
+    name: "Momo",
+    image: "assets/images/food2.jpg",
+    rating: 4.2,
+    time: "25 min"
+  },
+  {
+    id: 9,
+    name: "Sandwich",
+    image: "assets/images/food3.jpg",
+    rating: 4.7,
+    time: "18 min"
+  },
+  {
+    id: 10,
+    name: "Pizza",
+    image: "assets/images/food4.jpg",
+    rating: 4.8,
+    time: "30 min"
+  },
+  {
+    id: 11,
+    name: "Burger",
+    image: "assets/images/food5.jpg",
+    rating: 4.9,
+    time: "35 min"
+  },
+  {
+    id: 12,
+    name: "Samosa",
+    image: "assets/images/food6.jpg",
+    rating: 4.4,
+    time: "5 min"
   }
 ];
 
