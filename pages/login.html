@@ -6,86 +6,101 @@
   <title>Login | City Café</title>
 
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
 
   <!-- Main CSS -->
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../style.css" />
 
   <style>
-    body{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding-bottom:0;
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 0;
     }
-    .auth-box{
-      width:90%;
-      max-width:380px;
-      background:rgba(255,255,255,.9);
+
+    .auth-box {
+      width: 90%;
+      max-width: 380px;
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
-      border-radius:22px;
-      padding:28px;
-      box-shadow:0 20px 50px rgba(0,0,0,.15);
-      text-align:center;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      text-align: center;
     }
-    .auth-box h2{
-      margin-bottom:6px;
+
+    .auth-box h2 {
+      margin-bottom: 6px;
     }
-    .auth-box p{
-      font-size:14px;
-      color:#666;
-      margin-bottom:18px;
+
+    .auth-box p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 18px;
     }
-    .auth-input{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      background:#fff;
-      border-radius:14px;
-      padding:12px 14px;
-      margin-bottom:14px;
-      box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    .auth-input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     }
-    .auth-input input{
-      border:none;
-      outline:none;
-      width:100%;
-      font-size:14px;
+
+    .auth-input input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
     }
-    .auth-btn{
-      width:100%;
-      padding:12px;
-      border:none;
-      border-radius:16px;
-      background:var(--primary);
-      color:#fff;
-      font-size:15px;
-      font-weight:500;
-      margin-top:6px;
+
+    .auth-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 16px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      margin-top: 6px;
+      cursor: pointer;
     }
-    .google-btn{
-      margin-top:12px;
-      background:#fff;
-      color:#222;
-      border:1px solid #ddd;
+
+    .google-btn {
+      margin-top: 12px;
+      background: #fff;
+      color: #222;
+      border: 1px solid #ddd;
     }
-    .auth-link{
-      margin-top:14px;
-      font-size:13px;
+
+    .auth-link {
+      margin-top: 14px;
+      font-size: 13px;
     }
-    .auth-link a{
-      color:var(--primary);
-      text-decoration:none;
-      font-weight:500;
+
+    .auth-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
     }
   </style>
 </head>
 
 <body>
-
   <div class="auth-box">
     <h2>Welcome Back 👋</h2>
     <p>Login to City Café</p>
@@ -93,15 +108,25 @@
     <form id="loginForm">
       <div class="auth-input">
         <i class="fa-solid fa-envelope"></i>
-        <input type="email" name="email" placeholder="Email" required />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+        />
       </div>
 
       <div class="auth-input">
         <i class="fa-solid fa-lock"></i>
-        <input type="password" name="password" placeholder="Password" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
       </div>
 
-      <button class="auth-btn" type="submit">Login</button>
+      <button type="submit" class="auth-btn">Login</button>
     </form>
 
     <button class="auth-btn google-btn" id="googleLogin">
@@ -114,8 +139,13 @@
     </div>
   </div>
 
+  <!-- 🔐 Prevent logged-in users from accessing login -->
+  <script type="module">
+    import { preventAuthPages } from "../auth/auth-guard.js";
+    preventAuthPages();
+  </script>
+
   <!-- Login Logic -->
   <script type="module" src="../auth/login.js"></script>
-
 </body>
-</html>
+  </html>
