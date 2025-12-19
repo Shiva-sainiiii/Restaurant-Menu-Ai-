@@ -1,7 +1,15 @@
 // auth/firebase.js
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+// 🔥 Firebase single source of truth for City Café
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
 const firebaseConfig = {
   apiKey: "AIzaSyDmF5re93Zm2IhmydnVQ1fRqqQcoL38_PM",
   authDomain: "citycafe-4fc73.firebaseapp.com",
@@ -11,8 +19,25 @@ const firebaseConfig = {
   appId: "1:1001867744684:web:4ae946ff8b0b5928ce5609"
 };
 
-// Initialize Firebase
+/* =========================
+   INIT FIREBASE
+========================= */
 const app = initializeApp(firebaseConfig);
 
-// Firebase Auth
+/* =========================
+   AUTH INSTANCE
+========================= */
 export const auth = getAuth(app);
+
+/* =========================
+   AUTH STATE HELPER
+========================= */
+/**
+ * Listen to auth state changes
+ * @param {Function} callback
+ */
+export function listenAuthState(callback) {
+  onAuthStateChanged(auth, user => {
+    callback(user);
+  });
+  }
