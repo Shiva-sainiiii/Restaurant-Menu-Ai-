@@ -6,33 +6,43 @@
   <title>City Café</title>
 
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 
-  <!-- PWA Manifest -->
-<!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
-
-<!-- Theme color -->
-<meta name="theme-color" content="#ff7a18">
-
+  <!-- PWA (optional, safe to keep) -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#ff7a18" />
 </head>
+
 <body>
+
+  <!-- 🔐 AUTH PROTECTION -->
+  <script type="module">
+    import { protectApp } from "./auth/auth-guard.js";
+    protectApp();
+  </script>
+
   <!-- ================= HEADER ================= -->
   <header class="app-header">
     <h1>City Café</h1>
     <p>Delicious meals, now smarter 🍴</p>
   </header>
 
-  <!-- ================= MAIN SECTIONS ================= -->
+  <!-- ================= MAIN ================= -->
   <main id="main-content">
-    
-    <!-- 🏠 HOME PAGE -->
+
+    <!-- 🏠 HOME -->
     <section id="home" class="page active">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -42,7 +52,7 @@
       <div class="menu" id="menu"></div>
     </section>
 
-    <!-- 🤖 AI RECOMMENDER -->
+    <!-- 🤖 AI -->
     <section id="ai" class="page">
       <div class="ai-container">
         <h2>AI Food Recommender 🍲</h2>
@@ -51,8 +61,14 @@
         <div class="ai-chat-box" id="ai-chat"></div>
 
         <div class="ai-input">
-          <input type="text" id="aiPrompt" placeholder="Ask AI for food suggestions..." />
-          <button id="askAI"><i class="fa-solid fa-paper-plane"></i></button>
+          <input
+            type="text"
+            id="aiPrompt"
+            placeholder="Ask AI for food suggestions..."
+          />
+          <button id="askAI">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
         </div>
       </div>
     </section>
@@ -66,10 +82,18 @@
     <!-- 👤 PROFILE -->
     <section id="profile" class="page">
       <div class="profile-box">
-        <img src="https://i.imgur.com/4ZQZ4Zq.png" alt="Profile" class="profile-img">
-        <h2>Guest User</h2>
-        <p>Welcome to City Café — enjoy delicious meals & AI suggestions!</p>
-        <button class="install-btn" id="installBtn">Install App</button>
+        <img
+          src="https://i.imgur.com/4ZQZ4Zq.png"
+          alt="Profile"
+          class="profile-img"
+        />
+
+        <h2 id="userName">User</h2>
+        <p id="userEmail">user@email.com</p>
+
+        <button class="install-btn" id="logoutBtn">
+          Logout
+        </button>
       </div>
     </section>
 
@@ -77,24 +101,53 @@
 
   <!-- ================= BOTTOM NAV ================= -->
   <nav class="bottom-nav">
-    <button class="nav-btn active" data-page="home"><i class="fa-solid fa-house"></i><span>Home</span></button>
-    <button class="nav-btn" data-page="ai"><i class="fa-solid fa-robot"></i><span>AI</span></button>
-    <button class="nav-btn" data-page="favorites"><i class="fa-solid fa-heart"></i><span>Fav</span></button>
-    <button class="nav-btn" data-page="profile"><i class="fa-solid fa-user"></i><span>Profile</span></button>
+    <button class="nav-btn active" data-page="home">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </button>
+
+    <button class="nav-btn" data-page="ai">
+      <i class="fa-solid fa-robot"></i>
+      <span>AI</span>
+    </button>
+
+    <button class="nav-btn" data-page="favorites">
+      <i class="fa-solid fa-heart"></i>
+      <span>Fav</span>
+    </button>
+
+    <button class="nav-btn" data-page="profile">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </button>
   </nav>
 
   <!-- ================= JS ================= -->
-<script type="module" src="app.js"></script>
-<script type="module" src="ai.js"></script>
-<script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker
-        .register("/service-worker.js")
-        .then(reg => console.log("SW registered:", reg.scope))
-        .catch(err => console.error("SW failed:", err));
+  <script type="module" src="app.js"></script>
+  <script type="module" src="ai.js"></script>
+
+  <!-- 🔥 PROFILE + LOGOUT LOGIC -->
+  <script type="module">
+    import { auth } from "./auth/firebase.js";
+    import { logout } from "./auth/auth-guard.js";
+    import { onAuthStateChanged } from
+      "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+    const nameEl = document.getElementById("userName");
+    const emailEl = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        nameEl.textContent = user.displayName || "City Café User";
+        emailEl.textContent = user.email;
+      }
     });
-  }
-</script>
+
+    logoutBtn.addEventListener("click", () => {
+      logout();
+    });
+  </script>
+
 </body>
 </html>
