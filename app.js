@@ -1,5 +1,5 @@
 /* =========================
-   MAIN APP ENTRY POINT
+   City Café - Main App Entry
    app.js
 ========================= */
 
@@ -10,35 +10,39 @@ import {
   renderFavorites
 } from "./js/ui.js";
 
-// PWA logic
+// PWA logic (safe even if ignored)
 import { initPWA } from "./js/pwa.js";
 
 /* =========================
    APP INIT
 ========================= */
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("🚀 City Café App Starting...");
+  console.log("🚀 City Café App Initializing...");
 
-  // Init navigation (bottom nav)
-  initNavigation();
+  try {
+    // Bottom navigation (Home / AI / Fav / Profile)
+    initNavigation();
 
-  // Initial renders
-  renderMenu();
-  renderFavorites();
+    // Initial renders
+    renderMenu();
+    renderFavorites();
 
-  // Init PWA (service worker + install)
-  initPWA();
+    // PWA setup (optional)
+    initPWA();
 
-  console.log("✅ App Ready");
+    console.log("✅ City Café Ready");
+  } catch (error) {
+    console.error("❌ App Init Error:", error);
+  }
 });
 
 /* =========================
-  GLOBAL ERROR SAFETY
+   GLOBAL ERROR HANDLING
 ========================= */
-window.addEventListener("error", e => {
+window.addEventListener("error", (e) => {
   console.error("❌ Global Error:", e.message);
 });
 
-window.addEventListener("unhandledrejection", e => {
+window.addEventListener("unhandledrejection", (e) => {
   console.error("❌ Promise Rejection:", e.reason);
-});;
+});
