@@ -1,37 +1,47 @@
 // auth/login.js
-import { auth } from "./firebase.js";
+// 🔐 Login logic for City Café (Firebase Auth)
 
+import { auth } from "./firebase.js";
 import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  setPersistence,
+  browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-// Elements
-const form = document.getElementById("loginForm");
+/* =========================
+   DOM ELEMENTS
+========================= */
+const loginForm = document.getElementById("loginForm");
 const googleBtn = document.getElementById("googleLogin");
+
+/* =========================
+   AUTH PERSISTENCE
+========================= */
+setPersistence(auth, browserLocalPersistence);
 
 /* =========================
    EMAIL + PASSWORD LOGIN
 ========================= */
-form.addEventListener("submit", e => {
+loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = form.email.value.trim();
-  const password = form.password.value.trim();
+  const email = loginForm.email.value.trim();
+  const password = loginForm.password.value.trim();
 
   if (!email || !password) {
-    alert("Please fill all fields");
+    alert("Please enter email and password");
     return;
   }
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      window.location.href = "/index.html";
-    })
-    .catch(err => {
-      alert(err.message);
-    });
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    console.log("✅ Login successful");
+    window.location.replace("/index.html");
+  } catch (error) {
+    alert(error.message);
+  }
 });
 
 /* =========================
@@ -39,12 +49,12 @@ form.addEventListener("submit", e => {
 ========================= */
 const provider = new GoogleAuthProvider();
 
-googleBtn.addEventListener("click", () => {
-  signInWithPopup(auth, provider)
-    .then(() => {
-      window.location.href = "/index.html";
-    })
-    .catch(err => {
-      alert(err.message);
-    });
+googleBtn.addEventListener("click", async () => {
+  try {
+    await signInWithPopup(auth, provider);
+    console.log("✅ Google login successful");
+    window.location.replace("/index.html");
+  } catch (error) {
+    alert(error.message);
+  }
 });
