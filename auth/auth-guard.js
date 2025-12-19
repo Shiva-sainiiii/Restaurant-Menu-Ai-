@@ -1,43 +1,43 @@
-// auth-guard.js
-// Protect pages: redirect to login if user is not authenticated
+// auth/auth-guard.js
+// 🔐 Firebase-based route protection for City Café
 
+import { auth } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+/* =========================
+   PROTECT MAIN APP (index.html)
+========================= */
 /**
- * Checks if the user is logged in.
- * Here we assume a simple token or flag in localStorage called 'user'.
- * Adjust according to your auth logic (Firebase, JWT, etc.)
+ * Redirects to login page if user is NOT authenticated
  */
-export function isAuthenticated() {
-  const user = localStorage.getItem("user"); // Example: { name, email }
-  return !!user;
+export function protectApp(redirectTo = "/pages/login.html") {
+  onAuthStateChanged(auth, user => {
+    if (!user) {
+      console.warn("🚫 Not logged in, redirecting to login...");
+      window.location.replace(redirectTo);
+    }
+  });
 }
 
+/* =========================
+   PREVENT LOGIN / SIGNUP ACCESS
+========================= */
 /**
- * Protects a page by redirecting unauthorized users to login.
- * @param {string} redirectTo - URL to redirect if not logged in
+ * Prevent logged-in users from visiting login/signup pages
  */
-export function protectPage(redirectTo = "login.html") {
-  if (!isAuthenticated()) {
-    console.warn("🚫 Unauthorized access, redirecting to login...");
-    window.location.href = redirectTo;
-  }
+export function preventAuthPages(redirectTo = "/index.html") {
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      console.log("✅ Already logged in, redirecting to app...");
+      window.location.replace(redirectTo);
+    }
+  });
 }
 
-/**
- * Optionally, prevent logged-in users from visiting login/signup
- * Useful for login.html or signup.html pages
- */
-export function preventAuthPageAccess(redirectTo = "index.html") {
-  if (isAuthenticated()) {
-    console.log("✅ User already logged in, redirecting to home...");
-    window.location.href = redirectTo;
-  }
-}
-
-/**
- * Logout function
- * Clears localStorage/sessionStorage and redirects to login
- */
-export function logout(redirectTo = "login.html") {
-  localStorage.removeItem("user");
-  window.location.href = redirectTo;
+/* =========================
+   LOGOUT
+========================= */
+export async function logout(redirectTo = "/pages/login.html") {
+  await auth.signOut();
+  window.location.replace(redirectTo);
 }
