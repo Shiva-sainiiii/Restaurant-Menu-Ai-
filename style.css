@@ -41,7 +41,7 @@ background: linear-gradient(180deg, #E85D04, #FFF);
 color:#fff1b5;
 }
 
-.app-header h6 {color:#fff;
+.app-header h6 {color:#FFF3C4;
             }
 .app-header p {
   font-size: 14px;
@@ -384,6 +384,7 @@ color:#fff1b5;
 .ai-bot {
   position: relative;
 }
+
 
 
 
