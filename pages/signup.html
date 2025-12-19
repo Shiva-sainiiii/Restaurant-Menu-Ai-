@@ -3,131 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>City Café - Sign Up</title>
+  <title>Sign Up | City Café</title>
 
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="../style.css" />
 
   <style>
     body {
-      background: linear-gradient(180deg, #E85D04, #FFF);
-      color: #222;
-      min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
-      font-family: 'Poppins', sans-serif;
-      padding: 20px;
+      justify-content: center;
+      padding-bottom: 0;
     }
 
-    .signup-container {
-      background: white;
-      padding: 30px 25px;
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      width: 100%;
+    .auth-box {
+      width: 90%;
       max-width: 400px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-radius: 22px;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
       text-align: center;
     }
 
-    .signup-container h1 {
-      margin-bottom: 15px;
-      color: var(--primary);
+    .auth-box h2 {
+      margin-bottom: 6px;
     }
 
-    .signup-container p {
+    .auth-box p {
       font-size: 14px;
+      color: #666;
       margin-bottom: 20px;
-      color: #555;
     }
 
-    .signup-container input {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-      border: 1px solid #ccc;
+    .auth-input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .auth-input input {
+      border: none;
       outline: none;
+      width: 100%;
       font-size: 14px;
     }
 
-    .signup-container button {
+    .auth-btn {
       width: 100%;
       padding: 12px;
-      background: var(--primary);
-      color: white;
-      font-size: 16px;
       border: none;
-      border-radius: 12px;
+      border-radius: 16px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      margin-top: 6px;
       cursor: pointer;
-      transition: background 0.3s;
     }
 
-    .signup-container button:hover {
-      background: #ff844b;
+    .auth-link {
+      margin-top: 14px;
+      font-size: 13px;
     }
 
-    .signup-container .login-link {
-      margin-top: 12px;
-      font-size: 14px;
-      color: #555;
-    }
-
-    .signup-container .login-link a {
+    .auth-link a {
       color: var(--primary);
       text-decoration: none;
-    }
-
-    .signup-container .login-link a:hover {
-      text-decoration: underline;
+      font-weight: 500;
     }
   </style>
 </head>
+
 <body>
-  <div class="signup-container">
-    <h1>Sign Up</h1>
-    <p>Create your City Café account to enjoy personalized food suggestions 🍴</p>
+  <div class="auth-box">
+    <h2>Create Account ✨</h2>
+    <p>Join City Café for smart food recommendations</p>
 
     <form id="signupForm">
-      <input type="text" id="name" placeholder="Full Name" required />
-      <input type="email" id="email" placeholder="Email Address" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
-      <button type="submit">Sign Up</button>
+      <div class="auth-input">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="name" placeholder="Full Name" required />
+      </div>
+
+      <div class="auth-input">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="email" placeholder="Email" required />
+      </div>
+
+      <div class="auth-input">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="password" placeholder="Password" required />
+      </div>
+
+      <div class="auth-input">
+        <i class="fa-solid fa-lock"></i>
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirm Password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="auth-btn">Sign Up</button>
     </form>
 
-    <div class="login-link">
-      Already have an account? <a href="login.html">Login</a>
+    <div class="auth-link">
+      Already have an account?
+      <a href="./login.html">Login</a>
     </div>
   </div>
 
-  <script>
-    const form = document.getElementById('signupForm');
-
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
-
-      if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return;
-      }
-
-      // TODO: Connect with backend / Firebase to save user
-      console.log({ name, email, password });
-      alert("Account created successfully! Redirecting to login...");
-      window.location.href = "login.html";
-    });
+  <!-- 🔐 Prevent logged-in users from accessing signup -->
+  <script type="module">
+    import { preventAuthPages } from "../auth/auth-guard.js";
+    preventAuthPages();
   </script>
+
+  <!-- Signup Logic -->
+  <script type="module" src="../auth/signup.js"></script>
 </body>
-</html>
+  </html>
