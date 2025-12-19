@@ -1,6 +1,6 @@
 
 📦 Restaurant-Menu-WebApp
- 
+
 ├── index.html                ← Main app 
 ├── style.css 
 ├── app.js
