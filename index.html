@@ -128,27 +128,33 @@
   <script type="module" src="ai.js"></script>
 
   <!-- 🔥 PROFILE + LOGOUT LOGIC -->
-  <script type="module">
-    import { auth } from "./auth/firebase.js";
-    import { logout } from "./auth/auth-guard.js";
-    import { onAuthStateChanged } from
-      "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+<script type="module">
+  import { auth } from "./auth/firebase.js";
+  import { logout } from "./auth/auth-guard.js";
+  import { onAuthStateChanged } from
+    "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-    const nameEl = document.getElementById("userName");
-    const emailEl = document.getElementById("userEmail");
-    const logoutBtn = document.getElementById("logoutBtn");
+  const nameEl = document.getElementById("userName");
+  const emailEl = document.getElementById("userEmail");
+  const photoEl = document.getElementById("profilePhoto");
+  const logoutBtn = document.getElementById("logoutBtn");
 
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        nameEl.textContent = user.displayName || "City Café User";
-        emailEl.textContent = user.email;
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      nameEl.textContent = user.displayName || "City Café User";
+      emailEl.textContent = user.email;
+
+      // ✅ GOOGLE PROFILE PHOTO
+      if (user.photoURL) {
+        photoEl.src = user.photoURL;
       }
-    });
+    }
+  });
 
-    logoutBtn.addEventListener("click", () => {
-      logout();
-    });
-  </script>
+  logoutBtn.addEventListener("click", () => {
+    logout();
+  });
+</script>
 
 </body>
 </html>
